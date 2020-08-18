@@ -17,15 +17,19 @@
     </div>
 
     <div class="second-page" v-if="this.startGame == true">
-      <div class="player-container" v-for="player of players" v-bind:key="player.id">
-        <p>{{player.name}}</p>
-        <p>{{player.score}}</p>
-        <form v-on:submit.prevent="addScore">
-          <input type="number" v-model="player.setScore" />
-          <input type="submit" value="Добавить" />
-        </form>
+      <div class="player-container">
+        <div class="player-card" v-for="player of players" v-bind:key="player.id">
+          <p>{{player.name}}</p>
+          <p>Счет: {{player.score}}</p>
+          <span>Результаты раунда:{{player.gameHistory.toString()}}</span>
+          <form v-on:submit.prevent>
+            <input type="number" v-model="player.setScore" />
+            <!-- <input type="submit" value="Добавить" /> -->
+          </form>
+        </div>
       </div>
-      <button v-on:click="endGame">Закончить</button>
+      <button class="add-btn" v-on:click="addScore">Рануд</button>
+      <button class="finish-btn" v-on:click="endGame">Закончить</button>
       <div class="results" v-if="showResult === true">
         <p>Победитель: {{winnerName}} {{minResult}}</p>
         <p>Проигравший: {{loserName}} {{maxResult}}</p>
@@ -64,6 +68,7 @@ export default {
     addScore() {
       this.players.map(t => {
         t.score = +t.setScore + +t.score;
+        t.gameHistory.push(t.setScore);
         t.setScore = null;
       });
     },
@@ -109,5 +114,21 @@ export default {
 }
 .second-page {
   margin: 20px 0 0 20px;
+}
+.player-container {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+}
+.player-card {
+  width: 30%;
+  margin-top: 20px;
+  font-size: 24px;
+}
+.add-btn,
+.finish-btn {
+  margin-top: 40px;
+  display: flex;
+  justify-self: center;
 }
 </style>

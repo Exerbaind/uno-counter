@@ -43,7 +43,8 @@ export default {
           score: 0,
           setScore: null,
           name: this.playerInput,
-          id: Date.now()
+          id: Date.now(),
+          gameHistory: []
         };
         this.$emit("addPlayer", newPlayer);
       }

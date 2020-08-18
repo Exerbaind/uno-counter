@@ -18,7 +18,6 @@ export default {
 
 <style scoped>
 .players__item {
-  width: 20%;
   border: 1px solid black;
   border-radius: 10px;
   height: 150px;
