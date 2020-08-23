@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <div>
-      <ul class="usual-players__list">
-        <PlayerInGameCard
-          v-for="player in inGamePlayers"
-          v-bind:player="player"
-          :key="player.id"
-          v-bind:score="player.score"
-        />
-      </ul>
-      <button @click="coutScores">Посчитать</button>
-      <div v-if="this.showResults">
-        <p>{{$store.getters.getMinResult}}</p>
-        <p>{{$store.getters.getMaxResult}}</p>
-      </div>
-    </div>
+  <div class="container">
+    <ul class="ingame-players__list">
+      <PlayerInGameCard
+        v-for="player in inGamePlayers"
+        v-bind:player="player"
+        :key="player.id"
+        v-bind:score="player.score"
+      />
+    </ul>
+    <button @click="coutScores" class="btn">Закончить</button>
   </div>
 </template>
 
@@ -24,11 +18,6 @@ import { mapGetters, mapActions } from "vuex";
 import PlayerInGameCard from "../components/playerInGameCard";
 
 export default {
-  data() {
-    return {
-      showResults: false
-    };
-  },
   components: {
     PlayerInGameCard
     // Button
@@ -38,7 +27,6 @@ export default {
     ...mapActions(["coutScores"]),
     coutScores() {
       this.$store.dispatch("coutScores");
-      this.showResults = true;
     }
   }
 };
@@ -52,12 +40,28 @@ export default {
   width: 100vw;
   margin-top: 30px;
 }
-.usual-players {
+.ingame-players__list {
   width: 95%;
-}
-.usual-players__list {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  flex-wrap: wrap;
+}
+.btn {
+  background-color: rgba(255, 23, 68, 1);
+  padding: 20px 60px;
+  font-size: 24px;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+  margin: 20px auto;
+}
+.btn:hover {
+  background-color: rgba(255, 23, 68, 0.8);
+}
+.btn:active {
+  transform: scale(0.95);
 }
 </style>

@@ -31,7 +31,7 @@ export default {
 <style scoped>
 .usual-player__item {
   width: 15%;
-  min-height: 150px;
+  padding: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,10 +71,10 @@ export default {
 @media screen and (max-width: 750px) {
   .usual-player__item {
     width: 40%;
-    min-height: 80px;
+    padding: 20px;
   }
-  .usual-player__item:hover {
+  /* .usual-player__item:hover {
     background-color: white;
-  }
+  } */
 }
 </style>

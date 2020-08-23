@@ -6,14 +6,12 @@
     <li class="header__item">
       <router-link class="header__link" to="/rules">Правила</router-link>
     </li>
-    <li class="header__item">
+    <!-- <li class="header__item">
       <router-link class="header__link" to="/history">История</router-link>
-    </li>
+    </li>-->
   </ul>
 </template>
-<script>
-export default {};
-</script>
+
 <style scoped>
 .header__list {
   display: flex;

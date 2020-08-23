@@ -28,19 +28,24 @@ export default {
 
 <style scoped>
 .add-player-card {
-  width: 15%;
-  min-height: 150px;
+  width: 25%;
+  padding: 30px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.55);
-  margin: 10px;
+  margin: 10px auto;
   border-radius: 10px;
   position: relative;
   cursor: pointer;
   transition: 0.3s;
   text-align: center;
+}
+@media screen and (max-width: 900px) {
+  .add-player-card {
+    width: 95%;
+  }
 }
 .form {
   height: 100%;

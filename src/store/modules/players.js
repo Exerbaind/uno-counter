@@ -6,6 +6,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Оксана',
@@ -13,6 +15,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Таня П',
@@ -20,6 +24,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Таня З',
@@ -27,6 +33,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Дима',
@@ -34,6 +42,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Настя',
@@ -41,6 +51,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Юля',
@@ -48,6 +60,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Вика',
@@ -55,6 +69,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Андрей',
@@ -62,6 +78,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Женя',
@@ -69,6 +87,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
             {
                 name: 'Костя',
@@ -76,10 +96,15 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: false,
+                winner: false,
+                loser: false
             },
         ],
         minResult: 1000,
-        maxResult: 0
+        maxResult: 0,
+        loserID: 0,
+        winnerID: 0,
+        selectedPlayers: []
 
     },
     actions: {
@@ -94,6 +119,9 @@ export default {
         },
         coutScores(ctx) {
             ctx.commit('getAllScores')
+        },
+        setSelectedPlayers(ctx) {
+            ctx.commit('updateSelectedPlayers')
         }
     },
     mutations: {
@@ -107,6 +135,8 @@ export default {
                 score: 0,
                 gameHistory: [],
                 selected: true,
+                winner: false,
+                loser: false
             }
             state.players.push(newPlayer);
         },
@@ -115,25 +145,30 @@ export default {
             state.players[playerScore.id].gameHistory.push(playerScore.score);
         },
         getAllScores(state) {
-            const selectedPlayer = state.players.filter(p => p.selected === true)
-            for (let i = 0; i < selectedPlayer.length; i++) {
-                if (+selectedPlayer[i].score > state.maxResult) {
-                    state.maxResult = selectedPlayer[i].score;
-
+            for (let i = 0; i < state.selectedPlayers.length; i++) {
+                if (+state.selectedPlayers[i].score > state.maxResult) {
+                    state.maxResult = state.selectedPlayers[i].score;
+                    state.loserID = i;
                 }
-                if (+selectedPlayer[i].score <= state.minResult) {
-                    state.minResult = selectedPlayer[i].score;
+                if (+state.selectedPlayers[i].score <= state.minResult) {
+                    state.minResult = state.selectedPlayers[i].score;
+                    state.winnerID = i;
                 }
             }
+            state.selectedPlayers[state.loserID].loser = true;
+            state.selectedPlayers[state.winnerID].winner = true;
         },
+        updateSelectedPlayers(state) {
+            state.selectedPlayers = state.players.filter(p => p.selected === true);
+
+        }
     },
     getters: {
         allPlayers(state) {
             return state.players
         },
         inGamePlayers(state) {
-            const players = state.players.filter(p => p.selected === true);
-            return players;
+            return state.selectedPlayers
         },
         getMinResult(state) {
             return state.minResult
