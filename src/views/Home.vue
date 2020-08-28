@@ -45,7 +45,6 @@ export default {
 }
 .usual-players {
   width: 95%;
-  /* justify-content: center; */
 }
 .usual-players__list {
   display: flex;
@@ -63,7 +62,7 @@ export default {
   transition: 0.3s;
   cursor: pointer;
   outline: none;
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
 }
 .btn:hover {
   background-color: rgba(106, 191, 105, 0.8);
